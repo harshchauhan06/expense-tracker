@@ -35,3 +35,10 @@
     transform: translateX(-50%);
     color: black;
 }
+
+.add-button {
+    position: absolute;
+    left: 19%;
+    top: 30vh;
+    display: block;
+}
