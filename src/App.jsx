@@ -2,12 +2,12 @@ import './App.css';
 import bankImage from './assets/bank.png';
 import { useState } from 'react';
 import  AddButton from './components/add_button';
-
+import ExpenseTable from './components/expense_table';
 function App() {
   const [expenses, setExpenses] = useState([]);
 
   function AddExpense(expense) {
-    setExpenses((prevExpenses) => [...prevExpenses, expense]);
+    setExpenses((prevExpenses) => [expense, ...prevExpenses]);
     console.log(expenses);
   }
 
@@ -22,9 +22,11 @@ function App() {
         alt="bank"
         className="bank-image"
       />
-      <h2 className="total_expense">Total Expenses: {expenses.length}</h2>
+      
       <AddButton onAddExpense={AddExpense}/>
     </div>
+    <ExpenseTable expenses={expenses} />
+     
     </div>
   );
 }

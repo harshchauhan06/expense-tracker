@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import AddIcon from '@mui/icons-material/Add';
-import { useState } from "react";
+import React ,{ useState } from "react";
 import {
   
   Dialog,
@@ -17,7 +17,7 @@ export default function AddButton(props) {
     amount: '',
     name: '',
     description: '',
-    date: new Date().toLocaleDateString(),
+     
   })
 
   function handleChange(event) {
@@ -44,6 +44,7 @@ export default function AddButton(props) {
             name="amount"
             type="number"
             fullWidth
+            value={amount.amount}
             margin="normal"
             onChange={handleChange}
           />
@@ -53,15 +54,18 @@ export default function AddButton(props) {
             name="name"
             fullWidth
             margin="normal"
+            value={amount.name}
             onChange={handleChange}
           />
           <TextField
             label="Description"
             fullWidth
             margin="normal"
+            value={amount.description}
             onChange={handleChange}
             name="description"
           />
+           
         </DialogContent>
 
         <DialogActions>
@@ -70,13 +74,14 @@ export default function AddButton(props) {
           </Button>
 
           <Button variant="contained" onClick={() => {
-            props.onAddExpense(amount);
+            props.onAddExpense({ id: Date.now(),...amount, date: new Date().toLocaleDateString()});
             console.log(amount);
             setOpen(false);
              setAmount({
               amount: '',
               name: '',
               description: '',
+               
             });
           }}>
             Save
