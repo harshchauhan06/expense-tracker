@@ -14,6 +14,7 @@ export default function ExpenseTable({ expenses }) {
     <span>Amount</span>
     <span>Name</span>
     <span>Description</span>
+    <span>Category</span>
     <span>Date</span>
   </div>
 
@@ -22,6 +23,7 @@ export default function ExpenseTable({ expenses }) {
       <span>₹{expense.amount}</span>
       <span>{expense.name}</span>
       <span>{expense.description}</span>
+      <span>{expense.category}</span>
       <span>{expense.date}</span>
     </div>
   ))}

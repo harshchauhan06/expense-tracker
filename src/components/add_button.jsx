@@ -2,6 +2,7 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import AddIcon from '@mui/icons-material/Add';
 import React ,{ useState } from "react";
+import DropDown from './dropDown';
 import {
   
   Dialog,
@@ -17,7 +18,7 @@ export default function AddButton(props) {
     amount: '',
     name: '',
     description: '',
-     
+    category: '',
   })
 
   function handleChange(event) {
@@ -25,6 +26,7 @@ export default function AddButton(props) {
     setAmount((prevValue) => ({
       ...prevValue,
       [name]: value,
+      
     }));
 
   }
@@ -65,7 +67,13 @@ export default function AddButton(props) {
             onChange={handleChange}
             name="description"
           />
-           
+          <DropDown  value={amount.category}
+  onChange={(value) =>
+    setAmount((prev) => ({
+      ...prev,
+      category: value,
+    }))
+  } />
         </DialogContent>
 
         <DialogActions>
@@ -74,14 +82,14 @@ export default function AddButton(props) {
           </Button>
 
           <Button variant="contained" onClick={() => {
-            props.onAddExpense({ id: Date.now(),...amount, date: new Date().toLocaleDateString()});
+            props.onAddExpense({ id: Date.now(),...amount,  date: new Date().toLocaleDateString()});
             console.log(amount);
             setOpen(false);
              setAmount({
               amount: '',
               name: '',
               description: '',
-               
+              category: '',
             });
           }}>
             Save

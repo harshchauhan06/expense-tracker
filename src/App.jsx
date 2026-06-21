@@ -3,6 +3,7 @@ import bankImage from './assets/bank.png';
 import { useState } from 'react';
 import  AddButton from './components/add_button';
 import ExpenseTable from './components/expense_table';
+ 
 function App() {
   const [expenses, setExpenses] = useState([]);
 
@@ -12,9 +13,10 @@ function App() {
   }
 
   return (
+    
     <div className="app">
       <h1 className="app-title">Expense Tracker</h1>
-      
+       
 
     <div>
       <img
@@ -27,6 +29,7 @@ function App() {
     </div>
     <ExpenseTable expenses={expenses} />
      
+    
     </div>
   );
 }
