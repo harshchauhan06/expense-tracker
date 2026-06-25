@@ -3,6 +3,7 @@ import Stack from '@mui/material/Stack';
 import AddIcon from '@mui/icons-material/Add';
 import React ,{ useState } from "react";
 import DropDown from './dropDown';
+import { useEffect } from "react";
 import {
   
   Dialog,
@@ -30,6 +31,12 @@ export default function AddButton(props) {
     }));
 
   }
+  useEffect(() => {
+  if (props.editingExpense) {
+    setAmount(props.editingExpense);
+    setOpen(true);
+  }
+}, [props.editingExpense]);
 
   return (
     <>
@@ -82,16 +89,33 @@ export default function AddButton(props) {
           </Button>
 
           <Button variant="contained" onClick={() => {
-            props.onAddExpense({ id: Date.now(),...amount,  date: new Date().toLocaleDateString()});
-            console.log(amount);
-            setOpen(false);
-             setAmount({
-              amount: '',
-              name: '',
-              description: '',
-              category: '',
-            });
-          }}>
+
+  if (props.editingExpense) {
+
+    props.onUpdateExpense(amount);
+
+    props.setEditingExpense(null);
+
+  } else {
+
+    props.onAddExpense({
+      id: Date.now(),
+      ...amount,
+      date: new Date().toLocaleDateString(),
+    });
+
+  }
+
+  setOpen(false);
+
+  setAmount({
+    amount: '',
+    name: '',
+    description: '',
+    category: '',
+  });
+
+}}>
             Save
           </Button>
         </DialogActions>

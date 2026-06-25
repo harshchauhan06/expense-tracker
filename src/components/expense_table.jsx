@@ -2,7 +2,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import React, { useState , useEffect } from "react";
 
-export default function ExpenseTable({ expenses }) {
+export default function ExpenseTable(props) {
   const [selectedExpense, setSelectedExpense] = useState(null);
   const [menuPosition, setMenuPosition] = useState(null);
  
@@ -32,7 +32,7 @@ export default function ExpenseTable({ expenses }) {
     
      <h2 className="total_expense">
         Total Expenses: ₹
-        {expenses.reduce(
+        {props.expenses.reduce(
           (sum, expense) => sum + Number(expense.amount),
           0
         )}
@@ -47,7 +47,7 @@ export default function ExpenseTable({ expenses }) {
     <span>Date</span>
   </div>
 
-  {expenses.map((expense) => (
+  {props.expenses.map((expense) => (
     <div className="table-row" key={expense.id} onContextMenu={(event) => handleRightClick(event, expense)}>
       <span>₹{expense.amount}</span>
       <span>{expense.name}</span>
@@ -68,8 +68,21 @@ export default function ExpenseTable({ expenses }) {
       zIndex: 1000,
     }}
   >
-    <div>Edit</div>
-    <div>Delete</div>
+    <div
+  onClick={() => {
+    props.onEdit(selectedExpense);
+    setMenuPosition(null);
+  }}
+>
+  Edit
+</div>
+    <button
+  onClick={() => props.onDelete(props.expenses.find((e) => e.id === selectedExpense.id)?.id)}
+>
+  Delete
+</button>
+    
+     
   </div>
 )}
     </div>
