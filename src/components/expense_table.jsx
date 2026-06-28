@@ -1,22 +1,26 @@
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 import React, { useState , useEffect } from "react";
+import "./expenseTable.css";
 
 export default function ExpenseTable(props) {
   const [selectedExpense, setSelectedExpense] = useState(null);
   const [menuPosition, setMenuPosition] = useState(null);
  
   function handleRightClick(event, expense) {
-    event.preventDefault();
-    setSelectedExpense(expense);
-    setMenuPosition({ y: event.clientY, x: event.clientX });
-     console.log(event.clientX, event.clientY);
-  }
+  event.preventDefault();
+  console.log("Right click");
+
+  setSelectedExpense(expense);
+  setMenuPosition({
+    y: event.clientY,
+    x: event.clientX,
+  });
+}
 
   useEffect(() => {
   function handleClick() {
-    setMenuPosition(null);
-  }
+  console.log("Window click");
+  setMenuPosition(null);
+}
 
   window.addEventListener("click", handleClick);
 
@@ -57,31 +61,44 @@ export default function ExpenseTable(props) {
     </div>
   ))}
   {menuPosition && (
-  <div
-    style={{
-      position: "fixed",
-      top: menuPosition.y,
-      left: menuPosition.x,
-      background: "white",
-      border: "1px solid gray",
-      padding: "5px",
-      zIndex: 1000,
-    }}
-  >
-    <div
-  onClick={() => {
-    props.onEdit(selectedExpense);
-    setMenuPosition(null);
+<div
+  className="context-menu"
+  onClick={(e) => e.stopPropagation()}
+  style={{
+    position: "fixed",
+    top: menuPosition.y,
+    left: menuPosition.x,
+    background: "white",
+    border: "1px solid gray",
+    padding: "5px",
+    zIndex: 1000,
   }}
 >
-  Edit
-</div>
-    <button
-  onClick={() => props.onDelete(props.expenses.find((e) => e.id === selectedExpense.id)?.id)}
+<div
+  style={{
+    display: "flex",
+    flexDirection: "column",
+    gap: "5px",
+  }}
 >
-  Delete
-</button>
-    
+  <button
+    onClick={() => {
+      props.onEdit(selectedExpense);
+      setMenuPosition(null);
+    }}
+  >
+    Edit
+  </button>
+
+  <button
+    onClick={() => {
+      props.onDelete(selectedExpense.id);
+      setMenuPosition(null);
+    }}
+  >
+    Delete
+  </button>
+</div>
      
   </div>
 )}

@@ -40,12 +40,37 @@ export default function AddButton(props) {
 
   return (
     <>
-      <Button className="add-button" startIcon={<AddIcon />} onClick={() => setOpen(true)}>
+      <Button
+  className="add-button"
+  startIcon={<AddIcon />}
+  onClick={() => {
+    props.setEditingExpense(null);
+
+    setAmount({
+      amount: "",
+      name: "",
+      description: "",
+      category: "",
+    });
+
+    setOpen(true);
+  }}
+>
         Add Expense
       </Button>
 
-      <Dialog open={open} onClose={() => setOpen(false)}>
-        <DialogTitle>Add Expense</DialogTitle>
+      <Dialog
+  open={open}
+  onClose={() => {
+    setOpen(false);
+    props.setEditingExpense(null);
+  }}
+>
+        <DialogTitle>
+  {props.editingExpense
+    ? "Edit Expense"
+    : "Add Expense"}
+</DialogTitle>
 
         <DialogContent>
           <TextField
@@ -84,7 +109,12 @@ export default function AddButton(props) {
         </DialogContent>
 
         <DialogActions>
-          <Button onClick={() => setOpen(false)}>
+          <Button
+  onClick={() => {
+    setOpen(false);
+    props.setEditingExpense(null);
+  }}
+>
             Cancel
           </Button>
 
