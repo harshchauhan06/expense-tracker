@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 
 export default function AddButton(props) {
-  const [open, setOpen] = useState(false);
+  
   const [amount, setAmount]=useState({
     amount: '',
     name: '',
@@ -34,7 +34,7 @@ export default function AddButton(props) {
   useEffect(() => {
   if (props.editingExpense) {
     setAmount(props.editingExpense);
-    setOpen(true);
+    props.setOpen(true);
   }
 }, [props.editingExpense]);
 
@@ -53,16 +53,16 @@ export default function AddButton(props) {
       category: "",
     });
 
-    setOpen(true);
+    props.setOpen(true);
   }}
 >
         Add Expense
       </Button>
 
       <Dialog
-  open={open}
+  open={props.open}
   onClose={() => {
-    setOpen(false);
+    props.setOpen(false);
     props.setEditingExpense(null);
   }}
 >
@@ -111,7 +111,7 @@ export default function AddButton(props) {
         <DialogActions>
           <Button
   onClick={() => {
-    setOpen(false);
+    props.setOpen(false);
     props.setEditingExpense(null);
   }}
 >
@@ -136,7 +136,7 @@ export default function AddButton(props) {
 
   }
 
-  setOpen(false);
+  props.setOpen(false);
 
   setAmount({
     amount: '',

@@ -34,20 +34,16 @@ export default function ExpenseTable(props) {
   return (
     <>
     
-     <h2 className="total_expense">
-        Total Expenses: ₹
-        {props.expenses.reduce(
-          (sum, expense) => sum + Number(expense.amount),
-          0
-        )}
-      </h2>
+     
    
      <div className="expense-table ">
+       
+       
       <div className="table-header">
     <span>Amount</span>
     <span>Name</span>
     <span>Description</span>
-    <span>Category</span>
+    <span className="category">Category</span>
     <span>Date</span>
   </div>
 
@@ -56,7 +52,7 @@ export default function ExpenseTable(props) {
       <span>₹{expense.amount}</span>
       <span>{expense.name}</span>
       <span>{expense.description}</span>
-      <span>{expense.category}</span>
+      <span className="category">{expense.category}</span>
       <span>{expense.date}</span>
     </div>
   ))}

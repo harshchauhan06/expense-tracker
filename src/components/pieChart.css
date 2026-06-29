@@ -1,0 +1,97 @@
+        .pie_chart {
+            width: 470px;
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, .12);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .summary {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .summary-card {
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, .08);
+        }
+        
+        .summary-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, .18);
+            filter: brightness(1.05);
+        }
+        
+        .bills:hover {
+            box-shadow: 0 12px 25px rgba(79, 70, 229, .30);
+        }
+        
+        .food:hover {
+            box-shadow: 0 12px 25px rgba(225, 29, 72, .30);
+        }
+        
+        .transport:hover {
+            box-shadow: 0 12px 25px rgba(22, 163, 74, .30);
+        }
+        
+        .shopping:hover {
+            box-shadow: 0 12px 25px rgba(217, 119, 6, .30);
+        }
+        
+        .summary-card:active {
+            transform: scale(0.97);
+        }
+        
+        .bills {
+            background: #EEF2FF;
+            color: #4F46E5;
+        }
+        
+        .food {
+            background: #FFE4E6;
+            color: #E11D48;
+        }
+        
+        .transport {
+            background: #DCFCE7;
+            color: #16A34A;
+        }
+        
+        .shopping {
+            background: #FEF3C7;
+            color: #D97706;
+        }
+        
+        .empty-circle {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            border: 4px dashed #ccc;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            color: #777;
+        }
+        
+        .empty-circle span {
+            font-size: 48px;
+        }
+        
+        .empty-circle p {
+            margin-top: 10px;
+            font-size: 20px;
+        }

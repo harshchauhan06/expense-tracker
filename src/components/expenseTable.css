@@ -1,7 +1,40 @@
+.expense-table {
+    width: 100%;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .12);
+}
+
+.table-header,
+.table-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
+    padding: 15px 20px;
+}
+
+.table-header {
+    font-weight: bold;
+    background: #fafafa;
+    border-bottom: 2px solid black;
+}
+
+.table-row {
+    border-bottom: 1px solid #eee;
+}
+
+.table-row:hover {
+    background: #f8f8f8;
+}
+
+.category {
+    padding-left: 8px;
+}
+
 .context-menu {
     position: fixed;
     background: white;
-    border: 1px solid gray;
-    padding: 5px;
-    z-index: 1000;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, .15);
 }

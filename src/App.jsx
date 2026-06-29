@@ -3,8 +3,10 @@ import bankImage from './assets/bank.png';
 import { useState } from 'react';
 import  AddButton from './components/add_button';
 import ExpenseTable from './components/expense_table';
+import ExpensePieChart from './components/pieChart';
  
 function App() {
+  const [open, setOpen] = useState(false);
   const [editingExpense, setEditingExpense] = useState(null);
   const [expenses, setExpenses] = useState([]);
 
@@ -32,32 +34,50 @@ function updateExpense(updatedExpense) {
 }
 
   return (
-    
     <div className="app">
-      <h1 className="app-title">Expense Tracker</h1>
-       
+  <h1 className="app-title">Expense Tracker</h1>
 
-    <div>
-      <img
-        src={bankImage}
-        alt="bank"
-        className="bank-image"
+  <div className="dashboard">
+
+    <div className="left-panel">
+
+      <div className="top-section">
+        <img src={bankImage} alt="bank" className="bank-image" />
+
+        <div className="expense-info">
+          <h2 className="total_expense">
+            Total Expenses: ₹
+            {expenses.reduce(
+              (sum, expense) => sum + Number(expense.amount),
+              0
+            )}
+          </h2>
+
+          <AddButton
+            open={open}
+            setOpen={setOpen}
+            onAddExpense={AddExpense}
+            onUpdateExpense={updateExpense}
+            editingExpense={editingExpense}
+            setEditingExpense={setEditingExpense}
+          />
+        </div>
+      </div>
+
+      <ExpenseTable
+        expenses={expenses}
+        onDelete={DeleteExpense}
+        onEdit={editExpense}
       />
-      
-      <AddButton
-  onAddExpense={AddExpense}
-  onUpdateExpense={updateExpense}
-  editingExpense={editingExpense}
-  setEditingExpense={setEditingExpense}
-/>
     </div>
-    <ExpenseTable expenses={expenses}   
-  onDelete={DeleteExpense}
-  onEdit={editExpense}
-  />
-     
-    
-    </div>
+
+    <ExpensePieChart
+      expenses={expenses}
+      setOpen={setOpen}
+    />
+
+  </div>
+</div>
   );
 }
 
