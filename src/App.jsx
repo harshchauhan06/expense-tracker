@@ -1,5 +1,7 @@
 import './App.css';
-import bankImage from './assets/bank.png';
+import Header from './components/header';
+import Dashboard from './components/dashboard';
+ 
 import { useState } from 'react';
 import  AddButton from './components/add_button';
 import ExpenseTable from './components/expense_table';
@@ -35,14 +37,20 @@ function updateExpense(updatedExpense) {
 
   return (
     <div className="app">
-  <h1 className="app-title">Expense Tracker</h1>
-
-  <div className="dashboard">
-
-    <div className="left-panel">
+      <Header expenses={expenses}/>
+      <Dashboard 
+      editingExpense ={editingExpense}
+       setEditingExpense={setEditingExpense}
+      expenses={expenses}
+      setExpenses={setExpenses}
+      open={open}
+            setOpen={setOpen}
+       />
+      <div className="dashboard">
+        <div className="left-panel">
 
       <div className="top-section">
-        <img src={bankImage} alt="bank" className="bank-image" />
+         
 
         <div className="expense-info">
           <h2 className="total_expense">
@@ -71,10 +79,7 @@ function updateExpense(updatedExpense) {
       />
     </div>
 
-    <ExpensePieChart
-      expenses={expenses}
-      setOpen={setOpen}
-    />
+     
 
   </div>
 </div>

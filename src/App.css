@@ -14,14 +14,6 @@ body {
     padding: 40px 60px;
 }
 
-.app-title {
-    text-align: center;
-    font-family: 'Playfair Display', serif;
-    margin-bottom: 45px;
-    font-size: 48px;
-    color: black;
-}
-
 .dashboard {
     display: flex;
     gap: 40px;
@@ -38,10 +30,6 @@ body {
     gap: 25px;
     align-items: center;
     margin-bottom: 25px;
-}
-
-.bank-image {
-    width: 90px;
 }
 
 .expense-info {

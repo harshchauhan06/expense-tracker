@@ -1,0 +1,22 @@
+     .weird {
+         margin-top: 20px;
+         font-family: "Josefin Sans", sans-serif;
+         font-optical-sizing: auto;
+         font-weight: 550;
+         font-style: normal;
+         color: #BD5E1E;
+         font-size: 35px;
+     }
+     
+     .button-wrapper {
+         display: flex;
+         align-items: center;
+     }
+     
+     .topDashboard {
+         display: flex;
+         justify-content: space-between;
+         align-items: flex-end;
+         width: 100%;
+         margin: 35px 0 25px;
+     }

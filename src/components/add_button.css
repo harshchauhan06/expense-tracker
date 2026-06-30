@@ -1,0 +1,37 @@
+.add-button {
+    background: linear-gradient(135deg, #F97316, #FB923C) !important;
+    color: white !important;
+    padding: 12px 26px !important;
+    border-radius: 14px !important;
+    font-family: "Josefin Sans", sans-serif !important;
+    font-size: 17px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    letter-spacing: 0.5px;
+    box-shadow: 0 6px 18px rgba(249, 115, 22, 0.35);
+    transition: all 0.25s ease !important;
+}
+
+.add-button:hover {
+    background: linear-gradient(135deg, #EA580C, #F97316) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(249, 115, 22, 0.5);
+}
+
+.add-button:active {
+    transform: scale(0.96);
+    box-shadow: 0 4px 10px rgba(249, 115, 22, 0.25);
+}
+
+.add-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.25), 0 8px 20px rgba(249, 115, 22, 0.4);
+}
+
+.add-button .MuiButton-startIcon {
+    transition: transform 0.25s ease;
+}
+
+.add-button:hover .MuiButton-startIcon {
+    transform: rotate(90deg);
+}

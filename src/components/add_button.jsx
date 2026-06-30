@@ -1,4 +1,5 @@
 import Button from '@mui/material/Button';
+import './add_button.css'
 import Stack from '@mui/material/Stack';
 import AddIcon from '@mui/icons-material/Add';
 import React ,{ useState } from "react";
@@ -56,8 +57,8 @@ export default function AddButton(props) {
     props.setOpen(true);
   }}
 >
-        Add Expense
-      </Button>
+  Add Expense
+</Button>
 
       <Dialog
   open={props.open}

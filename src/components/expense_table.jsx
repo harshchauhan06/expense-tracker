@@ -80,6 +80,7 @@ export default function ExpenseTable(props) {
   <button
     onClick={() => {
       props.onEdit(selectedExpense);
+       
       setMenuPosition(null);
     }}
   >
