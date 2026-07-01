@@ -1,0 +1,133 @@
+.footer {
+    width: 100%;
+    margin-top: 80px;
+    padding: 60px 20px;
+    background: #F97316;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.footer-title {
+    margin: 0;
+    color: white;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 42px;
+    font-weight: 700;
+}
+
+.footer-tagline {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    color: rgba(255, 255, 255, .9);
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 20px;
+}
+
+.footer-heading {
+    margin-bottom: 18px;
+    color: white;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: .5px;
+}
+
+.tech-stack {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 30px;
+}
+
+.tech-stack span {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    background: rgba(255, 255, 255, .14);
+    border: 1px solid rgba(255, 255, 255, .18);
+    border-radius: 999px;
+    color: white;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    transition: .25s ease;
+}
+
+.tech-stack span:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, .22);
+}
+
+.tech-stack svg {
+    font-size: 22px;
+}
+
+.tech-stack span:nth-child(1) svg {
+    color: #61DAFB;
+}
+
+.tech-stack span:nth-child(2) svg {
+    color: #007FFF;
+}
+
+.tech-stack span:nth-child(3) svg {
+    color: #FFD54F;
+}
+
+.tech-stack span:nth-child(4) svg {
+    color: #68A063;
+}
+
+.tech-stack span:nth-child(5) svg {
+    color: #ffffff;
+}
+
+.tech-stack span:nth-child(6) svg {
+    color: #336791;
+}
+
+.footer-copy {
+    margin: 0;
+    color: white;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.footer-credit {
+    margin-top: 14px;
+    color: rgba(255, 255, 255, .9);
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 16px;
+}
+
+.footer-rights {
+    margin-top: 8px;
+    color: rgba(255, 255, 255, .75);
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 14px;
+}
+
+@media(max-width:768px) {
+    .footer {
+        padding: 50px 20px;
+    }
+    .footer-title {
+        font-size: 34px;
+    }
+    .footer-tagline {
+        font-size: 18px;
+    }
+    .tech-stack {
+        gap: 10px;
+    }
+    .tech-stack span {
+        font-size: 14px;
+        padding: 8px 14px;
+    }
+}

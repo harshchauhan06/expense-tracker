@@ -35,3 +35,160 @@
 .add-button:hover .MuiButton-startIcon {
     transform: rotate(90deg);
 }
+
+@media (max-width: 1024px) {
+    .add-button {
+        padding: 11px 22px !important;
+        font-size: 16px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .add-button {
+        padding: 10px 20px !important;
+        font-size: 15px !important;
+        border-radius: 12px !important;
+    }
+    .add-button .MuiSvgIcon-root {
+        font-size: 20px !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .add-button {
+        width: 100%;
+        max-width: 260px;
+        padding: 12px 18px !important;
+        font-size: 15px !important;
+        justify-content: center;
+    }
+    .add-button .MuiSvgIcon-root {
+        font-size: 18px !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .add-button {
+        font-size: 14px !important;
+        padding: 10px 16px !important;
+        border-radius: 10px !important;
+    }
+    .add-button .MuiSvgIcon-root {
+        font-size: 16px !important;
+    }
+}
+
+.expense-dialog-paper {
+    background: #fffdf9 !important;
+    border-radius: 22px !important;
+    padding: 14px !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .18) !important;
+}
+
+.dialog-title {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    font-family: "Josefin Sans", sans-serif !important;
+    font-size: 31px !important;
+    font-weight: 700 !important;
+    color: #F97316;
+    padding: 12px 0 18px !important;
+}
+
+.MuiDialogContent-root {
+    padding: 8px 30px 10px !important;
+}
+
+.MuiTextField-root {
+    margin-bottom: 14px !important;
+}
+
+.MuiOutlinedInput-root {
+    border-radius: 14px !important;
+    background: white;
+    transition: all .25s ease;
+}
+
+.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #F97316 !important;
+}
+
+.MuiOutlinedInput-root.Mui-focused {
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, .12);
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #F97316 !important;
+    border-width: 2px !important;
+}
+
+.MuiInputLabel-root.Mui-focused {
+    color: #F97316 !important;
+}
+
+.MuiFormControl-root {
+    margin-top: 12px !important;
+}
+
+.MuiDialogActions-root {
+    padding: 18px 30px 18px !important;
+    gap: 12px;
+}
+
+.dialog-cancel {
+    border: 2px solid #dddddd !important;
+    border-radius: 12px !important;
+    color: #777 !important;
+    padding: 8px 22px !important;
+    font-family: "Josefin Sans", sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    text-transform: none !important;
+    transition: .25s ease !important;
+}
+
+.dialog-cancel:hover {
+    border-color: #F97316 !important;
+    color: #F97316 !important;
+    background: rgba(249, 115, 22, .05) !important;
+}
+
+.dialog-save {
+    min-width: 120px !important;
+    height: 46px !important;
+    border-radius: 12px !important;
+    background: linear-gradient(135deg, #F97316, #FB923C) !important;
+    font-family: "Josefin Sans", sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    text-transform: none !important;
+    box-shadow: 0 8px 18px rgba(249, 115, 22, .35);
+    transition: all .25s ease !important;
+}
+
+.dialog-save:hover {
+    background: linear-gradient(135deg, #EA580C, #F97316) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 22px rgba(249, 115, 22, .45);
+}
+
+.dialog-save:active {
+    transform: scale(.97);
+}
+
+@media (max-width: 600px) {
+    .expense-dialog-paper {
+        margin: 16px !important;
+        border-radius: 18px !important;
+    }
+    .dialog-title {
+        font-size: 26px !important;
+    }
+    .MuiDialogContent-root {
+        padding: 6px 20px !important;
+    }
+    .MuiDialogActions-root {
+        padding: 16px 20px 18px !important;
+    }
+}

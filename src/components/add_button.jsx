@@ -5,6 +5,7 @@ import AddIcon from '@mui/icons-material/Add';
 import React ,{ useState } from "react";
 import DropDown from './dropDown';
 import { useEffect } from "react";
+import AttachMoneyRoundedIcon from "@mui/icons-material/AttachMoneyRounded";
 import {
   
   Dialog,
@@ -60,97 +61,137 @@ export default function AddButton(props) {
   Add Expense
 </Button>
 
-      <Dialog
+<Dialog
   open={props.open}
+  fullWidth
+  maxWidth="sm"
   onClose={() => {
     props.setOpen(false);
     props.setEditingExpense(null);
-  }}
->
-        <DialogTitle>
-  {props.editingExpense
-    ? "Edit Expense"
-    : "Add Expense"}
-</DialogTitle>
 
-        <DialogContent>
-          <TextField
-            label="Amount"
-            name="amount"
-            type="number"
-            fullWidth
-            value={amount.amount}
-            margin="normal"
-            onChange={handleChange}
-          />
-
-          <TextField
-            label="Name"
-            name="name"
-            fullWidth
-            margin="normal"
-            value={amount.name}
-            onChange={handleChange}
-          />
-          <TextField
-            label="Description"
-            fullWidth
-            margin="normal"
-            value={amount.description}
-            onChange={handleChange}
-            name="description"
-          />
-          <DropDown  value={amount.category}
-  onChange={(value) =>
-    setAmount((prev) => ({
-      ...prev,
-      category: value,
-    }))
-  } />
-        </DialogContent>
-
-        <DialogActions>
-          <Button
-  onClick={() => {
-    props.setOpen(false);
-    props.setEditingExpense(null);
-  }}
->
-            Cancel
-          </Button>
-
-          <Button variant="contained" onClick={() => {
-
-  if (props.editingExpense) {
-
-    props.onUpdateExpense(amount);
-
-    props.setEditingExpense(null);
-
-  } else {
-
-    props.onAddExpense({
-      id: Date.now(),
-      ...amount,
-      date: new Date().toLocaleDateString(),
+    setAmount({
+      amount: "",
+      name: "",
+      description: "",
+      category: "",
     });
+  }}
+  PaperProps={{
+    className: "expense-dialog-paper",
+  }}
+>
+  <DialogTitle className="dialog-title">
+    <AttachMoneyRoundedIcon
+      sx={{
+        color: "#F97316",
+        fontSize: 36,
+        mr: 1,
+      }}
+    />
+    {props.editingExpense ? "Edit Expense" : "Add Expense"}
+  </DialogTitle>
 
-  }
+  <DialogContent>
 
-  props.setOpen(false);
+    <TextField
+      label="Amount"
+      name="amount"
+      type="number"
+      fullWidth
+      autoFocus
+      placeholder="Enter amount"
+      value={amount.amount}
+      margin="normal"
+      onChange={handleChange}
+    />
 
-  setAmount({
-    amount: '',
-    name: '',
-    description: '',
-    category: '',
-  });
+    <TextField
+      label="Name"
+      name="name"
+      fullWidth
+      placeholder="Expense name"
+      value={amount.name}
+      margin="normal"
+      onChange={handleChange}
+    />
 
-}}>
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
+    <TextField
+      label="Description"
+      name="description"
+      fullWidth
+      placeholder="Short description"
+      value={amount.description}
+      margin="normal"
+      onChange={handleChange}
+    />
+
+    <DropDown
+      value={amount.category}
+      onChange={(value) =>
+        setAmount((prev) => ({
+          ...prev,
+          category: value,
+        }))
+      }
+    />
+
+  </DialogContent>
+
+  <DialogActions>
+
+    <Button
+      className="dialog-cancel"
+      onClick={() => {
+        props.setOpen(false);
+        props.setEditingExpense(null);
+
+        setAmount({
+          amount: "",
+          name: "",
+          description: "",
+          category: "",
+        });
+      }}
+    >
+      Cancel
+    </Button>
+
+    <Button
+      className="dialog-save"
+      variant="contained"
+      onClick={() => {
+
+        if (props.editingExpense) {
+
+          props.onUpdateExpense(amount);
+          props.setEditingExpense(null);
+
+        } else {
+
+          props.onAddExpense({
+            id: Date.now(),
+            ...amount,
+            date: new Date().toLocaleDateString(),
+          });
+
+        }
+
+        props.setOpen(false);
+
+        setAmount({
+          amount: "",
+          name: "",
+          description: "",
+          category: "",
+        });
+
+      }}
+    >
+      Save
+    </Button>
+
+  </DialogActions>
+</Dialog>
     </>
   );
 }

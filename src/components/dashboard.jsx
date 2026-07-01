@@ -35,8 +35,9 @@ function updateExpense(updatedExpense) {
 return (
    <div>
     <div className="topDashboard">
-  <div className="dashboardHeading">
-    <span className="expense-label weird">Total Expenses</span>
+     
+        <div className="dashboardHeading">
+           <span className="expense-label weird">Total Expenses</span>
 
     <h2 className="Total_expense weird underline">
       ₹{" "}
@@ -44,10 +45,10 @@ return (
         .reduce((sum, expense) => sum + Number(expense.amount), 0)
         .toLocaleString("en-IN")}
     </h2>
-  </div>
+        </div>
 
-  <div className="button-wrapper">
-        <AddButton
+        <div className="button-wrapper">
+            <AddButton
             open={props.open}
             setOpen={props.setOpen}
             onAddExpense={AddExpense}
@@ -55,18 +56,22 @@ return (
             editingExpense={props.editingExpense}
             setEditingExpense={props.setEditingExpense}
         />
-    </div>
+        </div>
+     
 </div>
+     
+  <div className="dashboard-content">
     <ExpenseTable
-            expenses={props.expenses}
-            onDelete={DeleteExpense}
-            onEdit={editExpense}
-          />
+        expenses={props.expenses}
+        onDelete={DeleteExpense}
+        onEdit={editExpense}
+    />
 
     <ExpensePieChart
-      expenses={props.expenses}
-      setOpen={props.setOpen}
+        expenses={props.expenses}
+        setOpen={props.setOpen}
     />
+</div>
           </div>
 );
 }

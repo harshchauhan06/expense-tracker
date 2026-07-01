@@ -1,22 +1,110 @@
-     .weird {
-         margin-top: 20px;
-         font-family: "Josefin Sans", sans-serif;
-         font-optical-sizing: auto;
-         font-weight: 550;
-         font-style: normal;
-         color: #BD5E1E;
-         font-size: 35px;
-     }
-     
-     .button-wrapper {
-         display: flex;
-         align-items: center;
-     }
-     
-     .topDashboard {
-         display: flex;
-         justify-content: space-between;
-         align-items: flex-end;
-         width: 100%;
-         margin: 35px 0 25px;
-     }
+.topDashboard {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    width: 100%;
+    margin: 35px 0 40px;
+}
+
+.dashboardHeading {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    min-width: fit-content;
+    margin-top: 10px;
+}
+
+.weird {
+    margin: 0;
+    font-family: "Josefin Sans", sans-serif;
+    font-weight: 550;
+    color: #BD5E1E;
+    font-size: 30px;
+    line-height: 1.2;
+}
+
+.underline {
+    margin: 0;
+    font-size: 55px;
+    line-height: 1;
+}
+
+@media (max-width: 900px) {
+    .topDashboard {
+        gap: 24px;
+    }
+    .weird {
+        font-size: 26px;
+    }
+    .underline {
+        font-size: 46px;
+    }
+}
+
+@media (max-width: 600px) {
+    .topDashboard {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+    }
+    .dashboardHeading {
+        align-items: center;
+    }
+    .button-wrapper {
+        width: 100%;
+        justify-content: center;
+    }
+    .weird {
+        font-size: 24px;
+    }
+    .underline {
+        font-size: 38px;
+    }
+}
+
+.dashboard-content {
+    display: grid;
+    grid-template-columns: 6.5fr 3.5fr;
+    gap: 10px;
+    align-items: start;
+    width: 100%;
+    margin-top: 25px;
+}
+
+.dashboard-content .expense-table,
+.dashboard-content .pie_chart {
+    width: 100%;
+}
+
+@media (max-width: 992px) {
+    .dashboard-content {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    .expense-table {
+        order: 1;
+    }
+    .pie_chart {
+        order: 2;
+        max-width: 550px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-content {
+        gap: 18px;
+    }
+    .pie_chart {
+        max-width: 100%;
+    }
+}

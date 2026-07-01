@@ -1,6 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./pieChart.css";
+import ReceiptLongRoundedIcon from "@mui/icons-material/ReceiptLongRounded";
+import RestaurantRoundedIcon from "@mui/icons-material/RestaurantRounded";
+import DirectionsBusRoundedIcon from "@mui/icons-material/DirectionsBusRounded";
+import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
  
 import {
     PieChart,
@@ -17,6 +21,13 @@ function ExpensePieChart({ expenses , setOpen }) {
   const [Food, setFood] = useState(0);
   const [Transport, setTransport] = useState(0);
   const [Shopping, setShopping] = useState(0);
+
+  const categoryIcons = {
+  Bills: <ReceiptLongRoundedIcon className="category-icon bills-icon" />,
+  Food: <RestaurantRoundedIcon className="category-icon food-icon" />,
+  Transport: <DirectionsBusRoundedIcon className="category-icon transport-icon" />,
+  Shopping: <ShoppingCartRoundedIcon className="category-icon shopping-icon" />,
+};
 
   useEffect(() => {
     let bills = 0;
@@ -71,10 +82,36 @@ function ExpensePieChart({ expenses , setOpen }) {
     <>
     <div className="pie_chart">
       <div className="summary">
-    <div className="summary-card bills">Bills: ₹{Bills}</div>
-    <div className="summary-card food">Food: ₹{Food}</div>
-    <div className="summary-card transport">Transport: ₹{Transport}</div>
-    <div className="summary-card shopping">Shopping: ₹{Shopping}</div>
+    <div className="summary-card bills">
+    <div className="summary-left">
+        {categoryIcons.Bills}
+        <span>Bills</span>
+    </div>
+    <span>₹{Bills}</span>
+</div>
+    <div className="summary-card food">
+    <div className="summary-left">
+        {categoryIcons.Food}
+        <span>Food</span>
+    </div>
+    <span>₹{Food}</span>
+</div>
+
+<div className="summary-card transport">
+    <div className="summary-left">
+        {categoryIcons.Transport}
+        <span>Transport</span>
+    </div>
+    <span>₹{Transport}</span>
+</div>
+
+<div className="summary-card shopping">
+    <div className="summary-left">
+        {categoryIcons.Shopping}
+        <span>Shopping</span>
+    </div>
+    <span>₹{Shopping}</span>
+</div>
 </div>
 {total === 0 ? (
     <div
@@ -87,25 +124,30 @@ function ExpensePieChart({ expenses , setOpen }) {
 ) : (
     <ResponsiveContainer
     width="100%"
-    height={360}
+    height={380}
 >
-        <PieChart
+<PieChart
     margin={{
-        top:20,
-        left:50,
-        right:20,
-        bottom:20,
+        top: 40,
+        right: 60,
+        bottom: 40,
+        left: 60,
     }}
 >
           <Pie
     data={data}
     dataKey="value"
     nameKey="name"
-    cx="58%"       
-    cy="50%"
-    outerRadius={95}
+    cx="50%"
+cy="55%"
+    outerRadius={85}
+    innerRadius={40}
+    paddingAngle={3}
+    cornerRadius={6}
     label={({ name, percent }) =>
-        `${name}: ${(percent * 100).toFixed(0)}%`
+        percent > 0.05
+            ? `${name} ${(percent * 100).toFixed(0)}%`
+            : ""
     }
     labelLine
 >
@@ -116,8 +158,15 @@ function ExpensePieChart({ expenses , setOpen }) {
         />
     ))}
 </Pie>
-          <Tooltip />
-          <Legend />
+         <Tooltip
+    formatter={(value) => [`₹${value}`, "Amount"]}
+    contentStyle={{
+        borderRadius: "12px",
+        border: "none",
+        boxShadow: "0 10px 24px rgba(0,0,0,.15)"
+    }}
+/>
+           
         </PieChart>
       </ResponsiveContainer>
 )}
