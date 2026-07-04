@@ -3,33 +3,35 @@ import AddButton from "./add_button";
 import ExpenseTable from './expense_table';
 import ExpensePieChart from './pieChart';
  
+import API from "../api/api";
+ 
 import {React , useState , useEffect} from "react";
  
 
 function Dashboard(props){
      
 
-function AddExpense(expense) {
-    props.setExpenses((prevExpenses) => [expense, ...prevExpenses]);
-    
-  }
+ 
 
-    function DeleteExpense(id) {
-    props.setExpenses((prevExpenses) => prevExpenses.filter((expense) => expense.id !== id));
+async function DeleteExpense(id) {
+  try {
+    await API.delete(
+      `/expenses/${id}`
+    );
+
+    await props.fetchExpenses();
+
+  } catch (err) {
+    console.error(err);
   }
+}
 
   function editExpense(expense) {
   props.setEditingExpense(expense);
 }
 
-function updateExpense(updatedExpense) {
-  props.setExpenses((prev) =>
-    prev.map((expense) =>
-      expense.id === updatedExpense.id
-        ? updatedExpense
-        : expense
-    )
-  );
+function updateExpense( ) {
+   
 }
 
 return (
@@ -48,14 +50,13 @@ return (
         </div>
 
         <div className="button-wrapper">
-            <AddButton
-            open={props.open}
-            setOpen={props.setOpen}
-            onAddExpense={AddExpense}
-            onUpdateExpense={updateExpense}
-            editingExpense={props.editingExpense}
-            setEditingExpense={props.setEditingExpense}
-        />
+          <AddButton
+    open={props.open}
+    setOpen={props.setOpen}
+    editingExpense={props.editingExpense}
+    setEditingExpense={props.setEditingExpense}
+    fetchExpenses={props.fetchExpenses}
+/>
         </div>
      
 </div>

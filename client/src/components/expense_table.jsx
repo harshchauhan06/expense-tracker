@@ -6,6 +6,7 @@ import DirectionsBusRoundedIcon from "@mui/icons-material/DirectionsBusRounded";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 
 export default function ExpenseTable(props) {
+  console.log("ExpenseTable props:", props.expenses);
   const [selectedExpense, setSelectedExpense] = useState(null);
   const [menuPosition, setMenuPosition] = useState(null);
   const categoryIcons = {
@@ -92,7 +93,9 @@ export default function ExpenseTable(props) {
         </span>
       </span>
 
-      <span>{expense.date}</span>
+      <span>
+  {new Date(expense.expense_date).toLocaleDateString("en-IN")}
+</span>
     </div>
   ))
 )}
@@ -117,10 +120,11 @@ export default function ExpenseTable(props) {
 
     <button
       className="menu-btn delete-btn"
-      onClick={() => {
-        props.onDelete(selectedExpense.id);
-        setMenuPosition(null);
-      }}
+     onClick={() => {
+  console.log("Edit clicked", selectedExpense);
+  props.onEdit(selectedExpense);
+  setMenuPosition(null);
+}}
     >
       🗑 Delete
     </button>

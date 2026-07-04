@@ -6,6 +6,7 @@ import React ,{ useState } from "react";
 import DropDown from './dropDown';
 import { useEffect } from "react";
 import AttachMoneyRoundedIcon from "@mui/icons-material/AttachMoneyRounded";
+
 import {
   
   Dialog,
@@ -14,6 +15,8 @@ import {
   TextField,
   DialogActions,
 } from "@mui/material";
+ 
+import API from "../api/api";
 
 export default function AddButton(props) {
   
@@ -39,7 +42,46 @@ export default function AddButton(props) {
     props.setOpen(true);
   }
 }, [props.editingExpense]);
+async function handleSave() {
+  try {
+    if (props.editingExpense) {
+      await API.put(
+        `/expenses/${props.editingExpense.id}`,
+        {
+          name: amount.name,
+          description: amount.description,
+          category: amount.category,
+          amount: Number(amount.amount),
+          expense_date: new Date().toISOString().split("T")[0],
+        }
+      );
+    } else {
+      await API.post("/expenses", {
+        name: amount.name,
+        description: amount.description,
+        category: amount.category,
+        amount: Number(amount.amount),
+        expense_date: new Date().toISOString().split("T")[0],
+      });
+    }
 
+    
+    await props.fetchExpenses();
+
+    props.setOpen(false);
+    props.setEditingExpense(null);
+
+    setAmount({
+      amount: "",
+      name: "",
+      description: "",
+      category: "",
+    });
+
+  } catch (err) {
+    console.error(err);
+  }
+}
   return (
     <>
       <Button
@@ -156,39 +198,13 @@ export default function AddButton(props) {
       Cancel
     </Button>
 
-    <Button
-      className="dialog-save"
-      variant="contained"
-      onClick={() => {
-
-        if (props.editingExpense) {
-
-          props.onUpdateExpense(amount);
-          props.setEditingExpense(null);
-
-        } else {
-
-          props.onAddExpense({
-            id: Date.now(),
-            ...amount,
-            date: new Date().toLocaleDateString(),
-          });
-
-        }
-
-        props.setOpen(false);
-
-        setAmount({
-          amount: "",
-          name: "",
-          description: "",
-          category: "",
-        });
-
-      }}
-    >
-      Save
-    </Button>
+   <Button
+  className="dialog-save"
+  variant="contained"
+  onClick={handleSave}
+>
+  Save
+</Button>
 
   </DialogActions>
 </Dialog>
