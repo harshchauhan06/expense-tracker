@@ -2,6 +2,27 @@ import pool from "../models/db.js";
 
 export async function getExpenses(req, res) {
     try {
+        const { name, category, amount, description } = req.query;
+
+        if (!name ||
+            name.trim() === "" ||
+            !category ||
+            category.trim() === "" ||
+            Number.isNaN(Number(amount)) ||
+            Number(amount) <= 0
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: "Please provide valid expense details.",
+            });
+        }
+
+        if (description && description.length > 250) {
+            return res.status(400).json({
+                success: false,
+                message: "Description cannot exceed 250 characters.",
+            });
+        }
         const result = await pool.query(
             "SELECT * FROM expenses ORDER BY id DESC"
         );
@@ -81,9 +102,6 @@ export async function deleteExpense(req, res) {
     }
 }
 export async function updateExpense(req, res) {
-
-    console.log(req.body);
-    console.log(req.params);
     try {
         const { id } = req.params;
 
@@ -94,6 +112,28 @@ export async function updateExpense(req, res) {
             amount,
             expense_date,
         } = req.body;
+
+
+        if (!name ||
+            name.trim() === "" ||
+            !category ||
+            category.trim() === "" ||
+            Number.isNaN(Number(amount)) ||
+            Number(amount) <= 0
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: "Please provide valid expense details.",
+            });
+        }
+
+        if (description && description.length > 250) {
+            return res.status(400).json({
+                success: false,
+                message: "Description cannot exceed 250 characters.",
+            });
+        }
+
 
         const result = await pool.query(
             `

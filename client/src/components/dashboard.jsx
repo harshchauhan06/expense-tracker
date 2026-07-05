@@ -30,9 +30,7 @@ async function DeleteExpense(id) {
   props.setEditingExpense(expense);
 }
 
-function updateExpense( ) {
-   
-}
+ 
 
 return (
    <div>

@@ -20,58 +20,106 @@ import API from "../api/api";
 
 export default function AddButton(props) {
   
-  const [amount, setAmount]=useState({
+  const [expenseData, setExpenseData]=useState({
     amount: '',
     name: '',
     description: '',
     category: '',
   })
+  const [errors, setErrors] = useState({
+  name: "",
+  amount: "",
+  category: "",
+  description: "",
+});
+const [loading, setLoading] = useState(false);
+
+function validateForm() {
+  const newErrors = {};
+
+if (expenseData.name.trim().length < 3) {
+    newErrors.name =
+      "Expense name must be at least 3 characters";
+}
+
+const value = Number(expenseData.amount);
+
+if (Number.isNaN(value) || value <= 0) {
+    newErrors.amount =
+      "Amount must be greater than 0";
+}
+
+   if (expenseData.description.length > 250) {
+  newErrors.description =
+    "Description cannot exceed 250 characters";
+}
+if (!expenseData.category) {
+  newErrors.category = "Please select a category";
+}
+
+  setErrors(newErrors);
+
+  return Object.keys(newErrors).length === 0;
+}
 
   function handleChange(event) {
     const {name ,value} = event.target;
-    setAmount((prevValue) => ({
+    setExpenseData((prevValue) => ({
       ...prevValue,
       [name]: value,
       
     }));
 
-  }
+      setErrors((prev) => ({
+    ...prev,
+    [name]: "",
+  }));
+}
+
+  
   useEffect(() => {
   if (props.editingExpense) {
-    setAmount(props.editingExpense);
+    setExpenseData(props.editingExpense);
     props.setOpen(true);
   }
 }, [props.editingExpense]);
 async function handleSave() {
+  if (!validateForm()) {
+    return;
+  }
+  setLoading(true);
   try {
-    if (props.editingExpense) {
-      await API.put(
-        `/expenses/${props.editingExpense.id}`,
-        {
-          name: amount.name,
-          description: amount.description,
-          category: amount.category,
-          amount: Number(amount.amount),
-          expense_date: new Date().toISOString().split("T")[0],
-        }
-      );
-    } else {
-      await API.post("/expenses", {
-        name: amount.name,
-        description: amount.description,
-        category: amount.category,
-        amount: Number(amount.amount),
-        expense_date: new Date().toISOString().split("T")[0],
-      });
-    }
+const expensePayload = {
+  name: expenseData.name,
+  description: expenseData.description,
+  category: expenseData.category,
+  amount: Number(expenseData.amount),
+  expense_date: props.editingExpense
+    ? expenseData.expense_date
+    : new Date().toISOString().split("T")[0],
+};
 
+if (props.editingExpense) {
+  await API.put(
+    `/expenses/${props.editingExpense.id}`,
+    expensePayload
+  );
+} else {
+  await API.post("/expenses", expensePayload);
+}
     
     await props.fetchExpenses();
 
     props.setOpen(false);
     props.setEditingExpense(null);
+    setErrors({
+  name: "",
+  amount: "",
+  category: "",
+  description: "",
+});
 
-    setAmount({
+    setExpenseData({
       amount: "",
       name: "",
       description: "",
@@ -81,21 +129,37 @@ async function handleSave() {
   } catch (err) {
     console.error(err);
   }
+  finally {
+   setLoading(false);
 }
+}
+
+function resetForm() {
+  setExpenseData({
+    amount: "",
+    name: "",
+    description: "",
+    category: "",
+  });
+
+  setErrors({
+    name: "",
+    amount: "",
+    category: "",
+    description: "",
+  });
+
+  props.setEditingExpense(null);
+}
+
+
   return (
     <>
       <Button
   className="add-button"
   startIcon={<AddIcon />}
   onClick={() => {
-    props.setEditingExpense(null);
-
-    setAmount({
-      amount: "",
-      name: "",
-      description: "",
-      category: "",
-    });
+ resetForm();
 
     props.setOpen(true);
   }}
@@ -108,16 +172,11 @@ async function handleSave() {
   fullWidth
   maxWidth="sm"
   onClose={() => {
-    props.setOpen(false);
-    props.setEditingExpense(null);
+  if (loading) return;
 
-    setAmount({
-      amount: "",
-      name: "",
-      description: "",
-      category: "",
-    });
-  }}
+  props.setOpen(false);
+ resetForm();
+}}
   PaperProps={{
     className: "expense-dialog-paper",
   }}
@@ -142,9 +201,11 @@ async function handleSave() {
       fullWidth
       autoFocus
       placeholder="Enter amount"
-      value={amount.amount}
+      value={expenseData.amount}
       margin="normal"
       onChange={handleChange}
+      error={Boolean(errors.amount)}
+    helperText={errors.amount}
     />
 
     <TextField
@@ -152,9 +213,11 @@ async function handleSave() {
       name="name"
       fullWidth
       placeholder="Expense name"
-      value={amount.name}
+      value={expenseData.name}
       margin="normal"
       onChange={handleChange}
+      error={Boolean(errors.name)}
+    helperText={errors.name}
     />
 
     <TextField
@@ -162,48 +225,56 @@ async function handleSave() {
       name="description"
       fullWidth
       placeholder="Short description"
-      value={amount.description}
+      value={expenseData.description}
       margin="normal"
       onChange={handleChange}
+      error={Boolean(errors.description)}
+    helperText={errors.description}
     />
+    
 
-    <DropDown
-      value={amount.category}
-      onChange={(value) =>
-        setAmount((prev) => ({
-          ...prev,
-          category: value,
-        }))
-      }
-    />
+<DropDown
+  value={expenseData.category}
+  onChange={(value) => {
+    setExpenseData((prev) => ({
+      ...prev,
+      category: value,
+    }));
+
+    setErrors((prev) => ({
+      ...prev,
+      category: "",
+    }));
+  }}
+/>
+{errors.category && (
+  <p className="category-error">
+    {errors.category}
+  </p>
+)}
 
   </DialogContent>
 
   <DialogActions>
 
     <Button
-      className="dialog-cancel"
-      onClick={() => {
-        props.setOpen(false);
-        props.setEditingExpense(null);
+  className="dialog-cancel"
+  disabled={loading}
+  onClick={() => {
+    props.setOpen(false);
+ resetForm();
+  }}
+>
+  Cancel
+</Button>
 
-        setAmount({
-          amount: "",
-          name: "",
-          description: "",
-          category: "",
-        });
-      }}
-    >
-      Cancel
-    </Button>
-
-   <Button
+<Button
   className="dialog-save"
   variant="contained"
   onClick={handleSave}
+  disabled={loading}
 >
-  Save
+  {loading ? "Saving..." : "Save"}
 </Button>
 
   </DialogActions>

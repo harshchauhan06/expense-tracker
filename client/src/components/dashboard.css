@@ -108,3 +108,9 @@
         max-width: 100%;
     }
 }
+
+.category-error {
+    color: #d32f2f;
+    font-size: 0.8rem;
+    margin: 5px 0 0 14px;
+}
