@@ -2,8 +2,10 @@ import "./dashboard.css";
 import AddButton from "./add_button";
 import ExpenseTable from './expense_table';
 import ExpensePieChart from './pieChart';
- 
+import toast from "react-hot-toast";
 import API from "../api/api";
+import SearchBar from "./searchBar";
+import CategoryFilter from "./categoryFilter";
  
 import {React , useState , useEffect} from "react";
  
@@ -18,6 +20,7 @@ async function DeleteExpense(id) {
     await API.delete(
       `/expenses/${id}`
     );
+    toast.success("Expense Deleted Successfully!");
 
     await props.fetchExpenses();
 
@@ -28,6 +31,7 @@ async function DeleteExpense(id) {
 
   function editExpense(expense) {
   props.setEditingExpense(expense);
+  
 }
 
  
@@ -58,12 +62,28 @@ return (
         </div>
      
 </div>
+<div className="toolbar">
+
+    <SearchBar
+        search={props.search}
+        setSearch={props.setSearch}
+    />
+
+    <CategoryFilter
+        categoryFilter={props.categoryFilter}
+        setCategoryFilter={props.setCategoryFilter}
+    />
+
+</div>
      
   <div className="dashboard-content">
     <ExpenseTable
         expenses={props.expenses}
         onDelete={DeleteExpense}
         onEdit={editExpense}
+          expenses={props.expenses}
+  search={props.search}
+  categoryFilter={props.categoryFilter}
     />
 
     <ExpensePieChart

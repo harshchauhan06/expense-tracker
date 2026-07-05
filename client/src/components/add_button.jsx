@@ -5,6 +5,7 @@ import AddIcon from '@mui/icons-material/Add';
 import React ,{ useState } from "react";
 import DropDown from './dropDown';
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 import AttachMoneyRoundedIcon from "@mui/icons-material/AttachMoneyRounded";
 
 import {
@@ -83,55 +84,49 @@ if (!expenseData.category) {
     props.setOpen(true);
   }
 }, [props.editingExpense]);
-async function handleSave() {
-  if (!validateForm()) {
-    return;
-  }
-  setLoading(true);
-  try {
-const expensePayload = {
-  name: expenseData.name,
-  description: expenseData.description,
-  category: expenseData.category,
-  amount: Number(expenseData.amount),
-  expense_date: props.editingExpense
-    ? expenseData.expense_date
-    : new Date().toISOString().split("T")[0],
-};
 
-if (props.editingExpense) {
-  await API.put(
-    `/expenses/${props.editingExpense.id}`,
-    expensePayload
-  );
-} else {
-  await API.post("/expenses", expensePayload);
-}
-    
+
+
+async function handleSave() {
+  if (!validateForm()) return;
+
+  setLoading(true);
+
+  try {
+    const expensePayload = {
+      name: expenseData.name,
+      description: expenseData.description,
+      category: expenseData.category,
+      amount: Number(expenseData.amount),
+      expense_date: props.editingExpense
+        ? expenseData.expense_date
+        : new Date().toISOString().split("T")[0],
+    };
+
+    if (props.editingExpense) {
+      await API.put(
+        `/expenses/${props.editingExpense.id}`,
+        expensePayload
+      );
+
+      toast.success("Expense updated successfully!");
+    } else {
+      await API.post("/expenses", expensePayload);
+
+      toast.success("Expense added successfully!");
+    }
+
     await props.fetchExpenses();
 
     props.setOpen(false);
-    props.setEditingExpense(null);
-    setErrors({
-  name: "",
-  amount: "",
-  category: "",
-  description: "",
-});
-
-    setExpenseData({
-      amount: "",
-      name: "",
-      description: "",
-      category: "",
-    });
+    resetForm();
 
   } catch (err) {
     console.error(err);
+    toast.error("Failed to save expense.");
+  } finally {
+    setLoading(false);
   }
-  finally {
-   setLoading(false);
-}
 }
 
 function resetForm() {

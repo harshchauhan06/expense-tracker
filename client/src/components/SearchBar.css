@@ -1,0 +1,39 @@
+.search-container {
+    width: 100%;
+}
+
+.search-container .MuiOutlinedInput-root {
+    height: 50px;
+    border-radius: 16px;
+    background: #fff;
+    transition: all .25s ease;
+}
+
+.search-container .MuiOutlinedInput-notchedOutline {
+    border: 2px solid #FFD8B5;
+}
+
+.search-container .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #F97316;
+}
+
+.search-container .Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #F97316;
+}
+
+.search-container .MuiOutlinedInput-root.Mui-focused {
+    box-shadow: 0 0 8px rgba(249, 115, 22, .12);
+}
+
+.search-container input {
+    padding: 0;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+}
+
+.search-container input::placeholder {
+    color: #9b9b9b;
+    opacity: 1;
+}

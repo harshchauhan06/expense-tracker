@@ -241,3 +241,69 @@
     max-width: 300px;
     line-height: 1.6;
 }
+
+.delete-dialog-paper {
+    border-radius: 18px !important;
+    padding: 8px 10px;
+    min-width: 430px;
+}
+
+.delete-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.45rem !important;
+    font-weight: 700 !important;
+    color: #2d2d2d;
+}
+
+.delete-text {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.delete-text strong {
+    color: #f97316;
+    font-weight: 700;
+}
+
+.warning-text {
+    color: #dc2626;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.delete-actions {
+    padding: 20px !important;
+    gap: 12px;
+}
+
+.cancel-btn {
+    border: 2px solid #f97316 !important;
+    color: #f97316 !important;
+    border-radius: 12px !important;
+    padding: 8px 22px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+}
+
+.cancel-btn:hover {
+    background: rgba(249, 115, 22, 0.08) !important;
+    border-color: #ea580c !important;
+}
+
+.delete-btn-dialog {
+    background: #f97316 !important;
+    color: white !important;
+    border-radius: 12px !important;
+    padding: 8px 22px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    box-shadow: 0 6px 18px rgba(249, 115, 22, 0.35) !important;
+}
+
+.delete-btn-dialog:hover {
+    background: #ea580c !important;
+}

@@ -114,3 +114,38 @@
     font-size: 0.8rem;
     margin: 5px 0 0 14px;
 }
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    margin: 30px 0;
+}
+
+.toolbar> :first-child {
+    flex: 1;
+}
+
+.toolbar> :last-child {
+    width: 220px;
+}
+
+.search-wrapper {
+    flex: 1;
+}
+
+.filter-wrapper {
+    width: 220px;
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .filter-wrapper {
+        width: 100%;
+    }
+}

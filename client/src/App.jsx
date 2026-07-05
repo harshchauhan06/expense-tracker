@@ -12,6 +12,8 @@ function App() {
   const [open, setOpen] = useState(false);
   const [editingExpense, setEditingExpense] = useState(null);
   const [expenses, setExpenses] = useState([]);
+  const [search, setSearch] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("All");
   console.log("Expenses state:", expenses);
  useEffect(() => {
   fetchExpenses();
@@ -40,6 +42,10 @@ async function fetchExpenses() {
       expenses={expenses}
       setExpenses={setExpenses}
       open={open}
+      search={search}
+    setSearch={setSearch}
+     categoryFilter={categoryFilter}
+  setCategoryFilter={setCategoryFilter}
             setOpen={setOpen}
             fetchExpenses={fetchExpenses}
        />
