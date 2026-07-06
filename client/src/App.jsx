@@ -2,6 +2,7 @@ import './App.css';
 import Header from './components/header';
 import Dashboard from './components/dashboard';
 import Footer from './components/footer';
+
  
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -14,6 +15,7 @@ function App() {
   const [expenses, setExpenses] = useState([]);
   const [search, setSearch] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("All");
+  const [sortBy, setSortBy] = useState("newest");
   console.log("Expenses state:", expenses);
  useEffect(() => {
   fetchExpenses();
@@ -48,6 +50,8 @@ async function fetchExpenses() {
   setCategoryFilter={setCategoryFilter}
             setOpen={setOpen}
             fetchExpenses={fetchExpenses}
+            sortBy={sortBy}
+  setSortBy={setSortBy}
        />
       
        

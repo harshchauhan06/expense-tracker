@@ -1,7 +1,9 @@
 import React, { useState , useEffect } from "react";
 import "./expenseTable.css";
 import Button from '@mui/material/Button';
- 
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import SwapVertRoundedIcon from "@mui/icons-material/SwapVertRounded";
 import Zoom from "@mui/material/Zoom";
 import {
   
@@ -23,6 +25,7 @@ export default function ExpenseTable(props) {
   const [menuPosition, setMenuPosition] = useState(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 const [expenseToDelete, setExpenseToDelete] = useState(null);
+const [sortAnchor, setSortAnchor] = useState(null);
   const categoryIcons = {
   Bills: <ReceiptLongRoundedIcon className="category-icon bills-icon" />,
   Food: <RestaurantRoundedIcon className="category-icon food-icon" />,
@@ -68,6 +71,48 @@ const [expenseToDelete, setExpenseToDelete] = useState(null);
 
   return matchesSearch && matchesCategory;
 });
+
+
+
+function sortExpenses(expenses, sortBy) {
+  switch (sortBy) {
+    case "newest":
+      return expenses.sort(
+        (a, b) => Date.parse(b.expense_date) - Date.parse(a.expense_date)
+      );
+
+    case "oldest":
+      return expenses.sort(
+        (a, b) => Date.parse(a.expense_date) - Date.parse(b.expense_date)
+      );
+
+    case "highest":
+      return expenses.sort(
+        (a, b) => Number(b.amount) - Number(a.amount)
+      );
+
+    case "lowest":
+      return expenses.sort(
+        (a, b) => Number(a.amount) - Number(b.amount)
+      );
+
+    case "az":
+      return expenses.sort((a, b) => a.name.localeCompare(b.name));
+
+    case "za":
+      return expenses.sort((a, b) => b.name.localeCompare(a.name));
+
+    default:
+      return expenses;
+  }
+}
+ 
+
+const sortedExpenses = sortExpenses(
+  [...filteredExpenses],
+  props.sortBy || "newest"
+);
+
   return (
     <>
     
@@ -81,8 +126,22 @@ const [expenseToDelete, setExpenseToDelete] = useState(null);
     <span>Name</span>
     <span>Description</span>
     <span className="category">Category</span>
-    <span>Date</span>
+    <span className="date-header">
+  Date
+
+  <SwapVertRoundedIcon
+    className="sort-icon"
+    sx={{
+        fontSize: 25,
+    }}
+    onClick={(e) => {
+      e.stopPropagation();
+      setSortAnchor(e.currentTarget);
+    }}
+  />
+</span>
   </div>
+  <div className="table-body"> 
 
 
 
@@ -101,7 +160,7 @@ const [expenseToDelete, setExpenseToDelete] = useState(null);
     </div>
   )
 ) : (
-  filteredExpenses.map((expense) => (
+  sortedExpenses.map((expense) => (
         <div
       className="table-row"
       key={expense.id}
@@ -129,7 +188,9 @@ const [expenseToDelete, setExpenseToDelete] = useState(null);
       <span>
   {new Date(expense.expense_date).toLocaleDateString("en-IN")}
 </span>
-    </div>
+</div>
+     
+    
   ))
 )}
 
@@ -171,6 +232,71 @@ setMenuPosition(null);
     
   </div>
 )}
+<Menu
+  anchorEl={sortAnchor}
+  open={Boolean(sortAnchor)}
+  onClose={() => setSortAnchor(null)}
+>
+  <MenuItem
+    selected={props.sortBy === "newest"}
+    onClick={() => {
+      props.setSortBy("newest");
+      setSortAnchor(null);
+    }}
+  >
+    Newest First
+  </MenuItem>
+
+  <MenuItem
+    selected={props.sortBy === "oldest"}
+    onClick={() => {
+      props.setSortBy("oldest");
+      setSortAnchor(null);
+    }}
+  >
+    Oldest First
+  </MenuItem>
+
+  <MenuItem
+    selected={props.sortBy === "highest"}
+    onClick={() => {
+      props.setSortBy("highest");
+      setSortAnchor(null);
+    }}
+  >
+    Highest Amount
+  </MenuItem>
+
+  <MenuItem
+    selected={props.sortBy === "lowest"}
+    onClick={() => {
+      props.setSortBy("lowest");
+      setSortAnchor(null);
+    }}
+  >
+    Lowest Amount
+  </MenuItem>
+
+  <MenuItem
+    selected={props.sortBy === "az"}
+    onClick={() => {
+      props.setSortBy("az");
+      setSortAnchor(null);
+    }}
+  >
+    Name (A-Z)
+  </MenuItem>
+
+  <MenuItem
+    selected={props.sortBy === "za"}
+    onClick={() => {
+      props.setSortBy("za");
+      setSortAnchor(null);
+    }}
+  >
+    Name (Z-A)
+  </MenuItem>
+</Menu>
 <Dialog
   TransitionComponent={Zoom}
   open={deleteDialogOpen}
@@ -229,6 +355,7 @@ setMenuPosition(null);
     </Button>
   </DialogActions>
 </Dialog>
+    </div>
     </div>
   </>);
 }

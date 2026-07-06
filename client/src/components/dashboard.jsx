@@ -7,6 +7,7 @@ import API from "../api/api";
 import SearchBar from "./searchBar";
 import CategoryFilter from "./categoryFilter";
  
+ 
 import {React , useState , useEffect} from "react";
  
 
@@ -74,6 +75,8 @@ return (
         setCategoryFilter={props.setCategoryFilter}
     />
 
+    
+
 </div>
      
   <div className="dashboard-content">
@@ -84,6 +87,8 @@ return (
           expenses={props.expenses}
   search={props.search}
   categoryFilter={props.categoryFilter}
+ sortBy={props.sortBy}
+    setSortBy={props.setSortBy}
     />
 
     <ExpensePieChart
