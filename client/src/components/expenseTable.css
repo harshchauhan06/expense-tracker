@@ -184,10 +184,7 @@
     }
 }
 
-@media (max-width: 768px) {
-    .expense-table {
-        overflow-x: auto;
-    }
+@media(max-width:768px) {
     .table-header,
     .table-row {
         min-width: 760px;
@@ -329,20 +326,7 @@
 
 .table-body {
     max-height: 620px;
-    overflow-y: auto;
-}
-
-.table-body::-webkit-scrollbar {
-    width: 8px;
-}
-
-.table-body::-webkit-scrollbar-thumb {
-    background: #F97316;
-    border-radius: 20px;
-}
-
-.table-body::-webkit-scrollbar-track {
-    background: transparent;
+    overflow-x: visible;
 }
 
 .table-header {
@@ -350,4 +334,23 @@
     top: 0;
     z-index: 10;
     background: white;
+}
+
+.table-scroll {
+    max-height: 620px;
+    overflow: auto;
+}
+
+.table-scroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.table-scroll::-webkit-scrollbar-thumb {
+    background: #F97316;
+    border-radius: 20px;
+}
+
+.table-scroll::-webkit-scrollbar-track {
+    background: transparent;
 }

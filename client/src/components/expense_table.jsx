@@ -119,6 +119,7 @@ const sortedExpenses = sortExpenses(
      
    
      <div className="expense-table ">
+       <div className="table-scroll"> 
        
        
       <div className="table-header">
@@ -189,6 +190,7 @@ const sortedExpenses = sortExpenses(
   {new Date(expense.expense_date).toLocaleDateString("en-IN")}
 </span>
 </div>
+
      
     
   ))
@@ -355,6 +357,7 @@ setMenuPosition(null);
     </Button>
   </DialogActions>
 </Dialog>
+    </div>
     </div>
     </div>
   </>);
