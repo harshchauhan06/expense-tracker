@@ -31,6 +31,7 @@ async function DeleteExpense(id) {
 }
 
   function editExpense(expense) {
+    console.log(expense.expense_date);
   props.setEditingExpense(expense);
   
 }

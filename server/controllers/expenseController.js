@@ -7,7 +7,20 @@ export async function getExpenses(req, res) {
 
 
         const result = await pool.query(
-            "SELECT * FROM expenses ORDER BY id DESC"
+            `
+    SELECT
+    id,
+    name,
+    description,
+    category,
+    amount,
+    TO_CHAR(expense_date, 'YYYY-MM-DD') AS expense_date,
+    user_id,
+    created_at
+FROM expenses
+WHERE user_id = $1
+ORDER BY id DESC;
+    `, [req.user.id]
         );
 
         res.status(200).json(result.rows);
@@ -26,13 +39,14 @@ export async function createExpense(req, res) {
             category,
             amount,
             expense_date,
+
         } = req.body;
 
         const result = await pool.query(
             `
       INSERT INTO expenses
-      (name, description, category, amount, expense_date)
-      VALUES ($1, $2, $3, $4, $5)
+      (name, description, category, amount, expense_date, user_id)
+      VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *;
       `, [
                 name,
@@ -40,6 +54,7 @@ export async function createExpense(req, res) {
                 category,
                 amount,
                 expense_date,
+                req.user.id,
             ]
         );
 
@@ -59,7 +74,7 @@ export async function deleteExpense(req, res) {
         const { id } = req.params;
 
         const result = await pool.query(
-            "DELETE FROM expenses WHERE id = $1 RETURNING *", [id]
+            "DELETE FROM expenses WHERE id = $1 AND user_id = $2 RETURNING *", [id, req.user.id]
         );
 
         if (result.rowCount === 0) {
@@ -94,6 +109,7 @@ export async function updateExpense(req, res) {
             category,
             amount,
             expense_date,
+
         } = req.body;
 
 
@@ -128,6 +144,7 @@ export async function updateExpense(req, res) {
           amount = $4,
           expense_date = $5
       WHERE id = $6
+      AND user_id = $7
       RETURNING *;
       `, [
                 name,
@@ -136,6 +153,7 @@ export async function updateExpense(req, res) {
                 amount,
                 expense_date,
                 id,
+                req.user.id
             ]
         );
 

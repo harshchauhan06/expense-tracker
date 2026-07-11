@@ -112,7 +112,7 @@ const sortedExpenses = sortExpenses(
   [...filteredExpenses],
   props.sortBy || "newest"
 );
-
+   console.log("Sorted Expenses:", sortedExpenses);
   return (
     <>
     
@@ -161,7 +161,9 @@ const sortedExpenses = sortExpenses(
     </div>
   )
 ) : (
+   
   sortedExpenses.map((expense) => (
+    
         <div
       className="table-row"
       key={expense.id}

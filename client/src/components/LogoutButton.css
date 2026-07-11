@@ -1,0 +1,18 @@
+.floating-logout {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+    background: #F97316 !important;
+    color: white !important;
+    text-transform: none !important;
+    border-radius: 14px !important;
+    padding: 12px 20px !important;
+    box-shadow: 0 10px 25px rgba(249, 115, 22, .35) !important;
+    transition: all .25s ease !important;
+}
+
+.floating-logout:hover {
+    background: #EA580C !important;
+    transform: translateY(-3px);
+}
