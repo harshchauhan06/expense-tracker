@@ -4,8 +4,8 @@ import ExpenseTable from './expense_table';
 import ExpensePieChart from './pieChart';
 import toast from "react-hot-toast";
 import API from "../api/api";
-import SearchBar from "./searchBar";
-import CategoryFilter from "./categoryFilter";
+import SearchBar from "./SearchBar";
+import CategoryFilter from "./CategoryFilter";
  
  
 import {React , useState , useEffect} from "react";
